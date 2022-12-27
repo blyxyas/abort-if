@@ -1,0 +1,21 @@
+[package]
+name = "abort-if"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+syn = { version = "1.0.107", features = ["visit-mut", "full", "printing", "extra-traits"]}
+proc-macro-error = "1.0.4"
+quote = "1.0.23"
+
+[lib]
+name = "abort_if"
+proc-macro = true
+
+[features]
+default = ["default_abort"]
+default_abort = []
+custom_abort = []
+keep_going = ["custom_abort"]
