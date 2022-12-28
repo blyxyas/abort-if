@@ -1,9 +1,63 @@
+//! # Abort-if crate
+//! 
+//! The `abort_if` procedural macro guarantees that a specific function panics if a condition is met.
+//! 
+//! ## Example
+//! 
+//! You can assure that a function won't be used if feature `x` is enabled
+//! 
+//! ```
+//! use abort_if::abort_if;
+//! #[abort_if(feature = x)]
+//! fn foo() {
+//! 	using_that_feature();
+//! }
+//! 
+//! fn main() {
+//! 	foo();
+//! }
+//! ```
+//! 
+//! This code will panic if that feature is enabled.
+//! 
+//! ## Features
+//! 
+//! The default is panicking using `compiler_error!`. This will output the following information:
+//! 
+//! ```
+//! error: Condition was met.
+//!  --> src/main.rs:5:1
+//!   |
+//! 5 | #[abort_if(feature = "x")]
+//!   | ^^^^^^^^^^^^^^^^^^^^^^^^^^
+//!   |
+//!   = note: this error originates in the attribute macro `abort_if` (in Nightly builds, run with -Z macro-backtrace for more info)
+//! ```
+//! 
+//! You can use the feature `custom_abort` to write a custom abort macro. When using this feature, make sure to have a `custom_abort_error!` macro with an `expr` as the argument.
+//! 
+//! ---
+//! 
+//! If you use the `custom_abort` feature, you can also use the `keep_going` one. This feature functions that, if your `custom_abort_error` macro works as a warning instead of a hard error, the code will keep going.
+
 use proc_macro::TokenStream;
 use proc_macro_error::proc_macro_error;
 use quote::quote;
 
 use syn::{parse_macro_input, parse_quote, parse_str, token::Brace, AttributeArgs, Block, ItemFn};
 
+/// The main proc-macro. It takes arguments.
+/// 
+/// ##### Example:
+/// 
+/// ```rust, ignore
+/// #[abort_if(debug_assertions)]
+/// fn x() {
+/// 	// ...
+/// }
+/// ```
+/// 
+/// This will fail if `debug_assertions` is enabled, so it will abort if it isn't on the release mode.
 #[proc_macro_error]
 #[proc_macro_attribute]
 pub fn abort_if(raw_args: TokenStream, input: TokenStream) -> TokenStream {

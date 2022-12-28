@@ -1,7 +1,15 @@
 [package]
 name = "abort-if"
 version = "0.1.0"
+authors = ["blyxyas"]
 edition = "2021"
+license = "MIT"
+license-file = "LICENSE"
+description = "Very handy attribute to abort a function at compile-time if something goes wrong"
+repository = "https://github.com/blyxyas/abort-if"
+readme = "README.md"
+keywords = ["attribute", "proc-macro", "abort", "error-handling", "error"]
+categories = ["development-tools", "development-tools::debugging", "rust-patterns"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
