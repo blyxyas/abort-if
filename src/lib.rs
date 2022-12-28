@@ -58,6 +58,17 @@ use syn::{parse_macro_input, parse_quote, parse_str, token::Brace, AttributeArgs
 /// ```
 /// 
 /// This will fail if `debug_assertions` is enabled, so it will abort if it isn't on the release mode.
+/// 
+/// The arguments can have nested conditionals, such as `not` or `any`, like this:
+/// 
+/// ```rust, ignore
+/// #[abort_if(any(debug_assertions, feature = "debug_mode"))]
+/// fn x() {
+/// 	// ...
+/// }
+/// ```
+/// 
+/// This code will abort if either `debug_assertions` is active, or the `debug_mode` feature is enabled.
 #[proc_macro_error]
 #[proc_macro_attribute]
 pub fn abort_if(raw_args: TokenStream, input: TokenStream) -> TokenStream {
