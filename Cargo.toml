@@ -4,7 +4,6 @@ version = "0.1.0"
 authors = ["blyxyas"]
 edition = "2021"
 license = "MIT"
-license-file = "LICENSE"
 description = "Very handy attribute to abort a function at compile-time if something goes wrong"
 repository = "https://github.com/blyxyas/abort-if"
 readme = "README.md"
