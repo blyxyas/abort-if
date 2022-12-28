@@ -2,6 +2,15 @@
 
 The `abort_if` procedural macro guarantees that a specific function panics if a condition is met.
 
+## Installing
+
+Put this in your `Cargo.toml` file:
+
+```
+[dependencies]
+abort-if = "0.1.2"
+```
+
 ## Example
 
 You can assure that a function won't be used if feature `x` is enabled
